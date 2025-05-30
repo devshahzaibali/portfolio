@@ -181,19 +181,22 @@
   </section>
 
   <!-- Contact Section -->
-  <!-- Contact Section -->
+<!-- Contact Section -->
 <section id="contact" class="contact-section">
   <div class="contact-container">
     <h2 class="section-title">Get In Touch</h2>
     <p class="section-subtitle">Have a project in mind or want to collaborate? Feel free to reach out!</p>
     
     <div class="contact-content">
-      <form action="https://formsubmit.co/techzaibx@gmail.com" method="POST">
+   <form id="contactForm" action="https://formsubmit.co/el/zekixu" method="POST">
         <!-- Required FormSubmit fields -->
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://shahzaibpc7d.github.io/TechZaibX/thank-you.html">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_subject" value="New Portfolio Contact!">
+        
+        <!-- Honeypot for spam prevention -->
+        <input type="text" name="_honey" style="display:none">
         
         <!-- Your form fields -->
         <div class="form-group">
@@ -211,8 +214,9 @@
           <textarea id="message" name="message" rows="5" required minlength="10"></textarea>
         </div>
         
-        <button type="submit" class="submit-btn">
+        <button type="submit" class="submit-btn" id="submitBtn">
           <span class="btn-text">Send Message</span>
+          <div class="spinner" id="spinner" style="display: none;"></div>
         </button>
       </form>
 
@@ -221,41 +225,38 @@
         Message sent successfully! I'll get back to you soon.
       </div>
       
-      <!-- Your existing contact info -->
-         <div class="contact-info">
-          <div class="info-item">
-            <i class="icon fas fa-envelope"></i>
-            <div>
-              <h3>Email</h3>
-              <p>techzaibx@gmail.com</p>
-            </div>
-          </div>
-          
-          <div class="info-item">
-            <i class="icon fas fa-phone-alt"></i>
-            <div>
-              <h3>Phone</h3>
-              <p>+92 3074218625</p>
-            </div>
-          </div>
-          
-          <div class="info-item">
-            <i class="icon fas fa-map-marker-alt"></i>
-            <div>
-              <h3>Location</h3>
-              <p>Lahore, punjab , pakistan</p>
-            </div>
-          </div>
-          
-          <div class="social-links">
-                    <a href="https://github.com/Shahzaibpc7d" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
-        <a target="_blank" href="https://www.linkedin.com/in/shahzaib-ali-b75ba7308?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-        <a target="_blank" href="https://x.com/ShahzaibAli7p?t=cRr5fEiWz3doPIBCTh65mg&s=08" class="social-icon"><i class="fab fa-twitter"></i></a>
-        <a target="_blank" href="https://www.instagram.com/shahzaibpc?igsh=MTc3MjB1NGlvc3ltcA==" class="social-icon"><i class="fab fa-instagram"></i></a>
+      <!-- Contact info -->
+      <div class="contact-info">
+        <div class="info-item">
+          <i class="icon fas fa-envelope"></i>
+          <div>
+            <h3>Email</h3>
+            <p>techzaibx@gmail.com</p>
           </div>
         </div>
-      </div>
-    </div>
+        
+        <div class="info-item">
+          <i class="icon fas fa-phone-alt"></i>
+          <div>
+            <h3>Phone</h3>
+            <p>+92 3074218625</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <i class="icon fas fa-map-marker-alt"></i>
+          <div>
+            <h3>Location</h3>
+            <p>Lahore, Punjab, Pakistan</p>
+          </div>
+        </div>
+        
+        <div class="social-links">
+          <a href="https://github.com/Shahzaibpc7d" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+          <a target="_blank" href="https://www.linkedin.com/in/shahzaib-ali-b75ba7308?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          <a target="_blank" href="https://x.com/ShahzaibAli7p?t=cRr5fEiWz3doPIBCTh65mg&s=08" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a target="_blank" href="https://www.instagram.com/shahzaibpc?igsh=MTc3MjB1NGlvc3ltcA==" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
       </div>
     </div>
   </div>
