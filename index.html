@@ -1087,18 +1087,34 @@
       <p class="section-subtitle">Have a project in mind or want to collaborate? Feel free to reach out!</p>
       
       <div class="contact-content">
-<form action="https://formsubmit.co/techzaibx@gmail.com" method="POST">
+<form id="contactForm" action="https://formsubmit.co/techzaibx@gmail.com" method="POST">
+  <!-- FormSubmit Configuration -->
   <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table"> <!-- Neat email format -->
-  <input type="hidden" name="_next" value="https://username.github.io/thank-you.html">
+  <input type="hidden" name="_next" value="https://shahzaibpc7d.github.io/TechZaibX/thank-you.html">
+  <input type="hidden" name="_template" value="table">
   
-  <!-- Your existing form fields -->
+  <!-- Form Fields -->
   <div class="form-group">
-    <label for="name">Name</label>
+    <label for="name">Full Name</label>
     <input type="text" id="name" name="name" required>
   </div>
-  <!-- ... other fields ... -->
-  <button type="submit">Send Message</button>
+  
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" name="subject">
+  </div>
+  
+  <div class="form-group">
+    <label for="message">Your Message</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+  </div>
+  
+  <button type="submit" class="submit-btn">Send Message</button>
 </form>
         
         <div class="contact-info">
