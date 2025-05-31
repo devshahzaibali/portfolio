@@ -117,7 +117,6 @@ body {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 70%;
   height: 100vh;
   background-color: var(--nav-bg);
   box-shadow: -5px 0 15px var(--shadow-color);
@@ -127,8 +126,9 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  width: 85%; 
+  max-width: 300px; 
 }
-
 .mobile-menu.show {
   right: 0;
 }
@@ -294,6 +294,7 @@ button:hover {
   object-fit: cover;
   box-shadow: 0 8px 20px var(--shadow-color);
   transition: all 0.5s ease;
+  aspect-ratio: 1/1;
 }
 
 .image img:hover {
@@ -487,7 +488,12 @@ button:hover {
   font-family: inherit;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-
+@media (max-width: 480px) {
+  .project-component {
+    height: auto;
+    min-height: auto;
+  }
+}
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
@@ -1004,4 +1010,33 @@ button:disabled {
   .contact-form, .contact-info {
     width: 100%;
   }
+}
+/* Loading state */
+button.loading .btn-text {
+  visibility: hidden;
+}
+button.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Input validation */
+input.invalid, textarea.invalid {
+  border-color: #ff4444 !important;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

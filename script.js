@@ -7,6 +7,9 @@ const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 const typingText = document.getElementById('typing-text');
 const contactForm = document.getElementById('contactForm');
+const formSuccess = document.getElementById('form-success');
+const submitBtn = document.getElementById('submitBtn');
+const btnText = submitBtn?.querySelector('.btn-text');
 const footerYear = document.querySelector('.footer-bottom p');
 
 // Mobile Menu Toggle
@@ -33,17 +36,15 @@ function toggleTheme() {
   const currentTheme = body.getAttribute('data-theme');
   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
   body.setAttribute('data-theme', newTheme);
-  themeToggle.textContent = newTheme === 'dark' ? '🌞' : '🌓';
+  themeToggle.textContent = newTheme === 'dark' ? '🌞' : '🌙';
   localStorage.setItem('theme', newTheme);
 }
 
 if (themeToggle) {
   themeToggle.addEventListener('click', toggleTheme);
-
-  // Initialize theme from localStorage
   const savedTheme = localStorage.getItem('theme') || 'light';
   body.setAttribute('data-theme', savedTheme);
-  themeToggle.textContent = savedTheme === 'dark' ? '🌞' : '🌓';
+  themeToggle.textContent = savedTheme === 'dark' ? '🌞' : '🌙';
 }
 
 // Typing Animation
@@ -60,92 +61,97 @@ if (typingText) {
       
       if (!isDeleting && charIndex === currentWord.length) {
         isDeleting = true;
-        typingSpeed = 1500; // Pause at end of word
+        typingSpeed = 1500;
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         wordIndex = (wordIndex + 1) % words.length;
-        typingSpeed = 500; // Pause before next word
+        typingSpeed = 500;
       }
-      
       setTimeout(type, typingSpeed);
     }
-    
-    setTimeout(type, 1000); // Initial delay
+    setTimeout(type, 1000);
   }
-
   typeWriter();
 }
 
-// Smooth Scroll for anchor links
+// Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
-    const targetId = this.getAttribute('href');
-    const target = document.querySelector(targetId);
-    if (target) {
-      target.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    const target = document.querySelector(this.getAttribute('href'));
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// Form Submission Handling
+// Form Submission
 if (contactForm) {
-  const submitBtn = contactForm.querySelector('.submit-btn');
-  const btnText = submitBtn?.querySelector('.btn-text');
-  const formSuccess = document.getElementById('form-success');
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  contactForm.addEventListener('submit', function(e) {
-    if (btnText) {
-      btnText.textContent = 'Sending...';
-      submitBtn.disabled = true;
+    if (btnText) btnText.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/techzaibx@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+      });
+
+      if (!response.ok) throw new Error('Failed to send');
+      
+      formSuccess.style.display = 'block';
+      formSuccess.textContent = 'Message sent successfully!';
+      formSuccess.style.color = '';
+      contactForm.reset();
+
+      setTimeout(() => {
+        formSuccess.style.display = 'none';
+      }, 5000);
+
+    } catch (error) {
+      formSuccess.style.display = 'block';
+      formSuccess.textContent = 'Error: ' + error.message;
+      formSuccess.style.color = '#ff4444';
+    } finally {
+      if (btnText) btnText.textContent = 'Send Message';
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
     }
+  });
 
-    // For FormSubmit.co
-    setTimeout(() => {
-      if (formSuccess) {
-        formSuccess.style.display = 'block';
-        formSuccess.textContent = 'Message sent successfully!';
-      }
-      if (btnText) {
-        btnText.textContent = 'Send Message';
-        submitBtn.disabled = false;
-      }
-    }, 2000);
+  // Real-time validation
+  contactForm.addEventListener('input', (e) => {
+    if (e.target.validity) {
+      e.target.classList.toggle('invalid', !e.target.validity.valid);
+    }
   });
 }
 
-// Update footer year
+// Footer Year
 if (footerYear) {
   footerYear.textContent = `© ${new Date().getFullYear()} ShahzaibAli. All rights reserved.`;
 }
 
-// Project Card Hover Effects
+// Project Card Hover (Desktop only)
 document.addEventListener('DOMContentLoaded', () => {
   const components = document.querySelectorAll('.project-component');
   
-  if (components.length) {
+  if (components.length && !('ontouchstart' in window)) {
     components.forEach((comp, index) => {
       comp.style.setProperty('--order', index);
       
       comp.addEventListener('mousemove', (e) => {
         const rect = comp.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const angleX = (y - centerY) / 20;
-        const angleY = (centerX - x) / 20;
+        const angleX = (e.clientY - rect.top - rect.height/2) / 20;
+        const angleY = (rect.width/2 - e.clientX + rect.left) / 20;
         
         comp.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
-        comp.style.boxShadow = `${angleY * 5}px ${angleX * 5}px 15px rgba(0,0,0,0.2)`;
       });
       
       comp.addEventListener('mouseleave', () => {
         comp.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-        comp.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
       });
     });
   }
